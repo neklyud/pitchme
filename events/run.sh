@@ -1,0 +1,1 @@
+uvicorn events.app.main:app --port 8001

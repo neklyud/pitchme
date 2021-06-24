@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pitchme"
+version = "0.1.0"
+description = ""
+authors = ["saneklyu <saneklyu@mts.ru>"]
+
+[tool.poetry.dependencies]
+python = "^3.8.2"
+fastapi = "^0.65.2"
+yoyo-migrations = "^7.3.2"
+asyncpg = "^0.23.0"
+betterconf = "^2.6.1"
+python-dotenv = "^0.17.1"
+uvicorn = "^0.14.0"
+psycopg2-binary = "^2.9.1"
+argparse = "^1.4.0"
+SQLAlchemy = "^1.4.18"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

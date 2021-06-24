@@ -1,0 +1,19 @@
+version: '3'
+services:
+    db:
+        image: postgres:13
+        ports:
+            - 5431:5432
+        volumes:
+            - db-data:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_PASSWORD=postgres
+    adminer:
+        image: adminer:latest
+        links:
+            - "db:database"
+        ports:
+            - 8080:8080
+
+volumes:
+    db-data:
