@@ -5,6 +5,7 @@ from sqlalchemy import (
     String,
     Text,
     DateTime,
+    Sequence,
 )
 from datetime import datetime
 from events.app.models.pydantic.events import (
@@ -19,7 +20,7 @@ from sqlalchemy import insert
 class Event(Base):
     __tablename__ = "event"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, Sequence('event_id_seq'), primary_key=True)
     name = Column(String)
     description = Column(Text)
     city = Column(String)
@@ -29,21 +30,12 @@ class Event(Base):
     def __repr__(self):
         return "<Event id={id}>".format(id=self.id)
 
-    # @classmethod
-    # async def insert_item(cls, new_item: EventsInJSONAPISchema):
-    #     session_maker = alchemy.session
-    #     async with session_maker() as session:
-    #         new_event = await session.execute(insert(Event).values(**new_item.attributes.dict()))
-    #         logging.info(new_event.id)
-    #
-    # @classmethod
-    # async def select_items(cls):
-    #     session_maker = alchemy.session
-    #     async with session_maker() as session:
-    #         result = await session.execute(select(Event))
-    #     data = []
-    #     for i_res in result.fetchall():
-    #         i_res.to_json_api(EventSchema)
-    #         print(i_res)
-    #     return EventsOutListJSONAPISchema(data=data)
-
+    # def __dict__(self):
+    #     return {
+    #         "id": self.id,
+    #         "name": self.name,
+    #         "description": self.description,
+    #         "city": self.city,
+    #         "start_time": self.start_time,
+    #         "end_time": self.end_time,
+    #     }

@@ -3,6 +3,8 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.ext.asyncio import AsyncSession
+from core.models.pydantic.json_api.filters import Filter
+from typing import Optional
 
 
 class AlchemyHelper(object):
@@ -24,13 +26,13 @@ Base = declarative_base()
 
 
 class BaseCrud(object):
-    async def select(self):
+    async def select(self, response_model, filters: Optional[Filter] = None):
         raise Exception
 
     async def insert(self, new_item):
         raise Exception
 
-    async def update(self):
+    async def update(self, response_model, updating_data, filters: Optional[Filter] = None):
         raise Exception
 
     async def delete(self):

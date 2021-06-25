@@ -28,3 +28,8 @@ async def on_startup():
 @app.on_event("shutdown")
 async def on_shutdown():
     await db.disconnect()
+
+
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, port=8001)
