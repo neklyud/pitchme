@@ -4,7 +4,7 @@ import asyncpg
 class DBCreator(object):
     @classmethod
     async def create(cls, config) -> None:
-        connection = await asyncpg.connect(user=config.DB_USER, password=config.DB_PASSWORD)
+        connection = await asyncpg.connect(user=config.DB_USER, password=config.DB_PASSWORD, port=config.DB_PORT)
         database_name = await connection.fetch(
             "SELECT FROM pg_database WHERE datname='{db_name}'".format(
                 db_name=config.DB_NAME
