@@ -1,4 +1,4 @@
-from core.utils.databases.alchemy import BaseCrud, Base
+from core.utils.databases.alchemy import Base
 from sqlalchemy import (
     Column,
     Integer,
@@ -8,13 +8,6 @@ from sqlalchemy import (
     Sequence,
 )
 from datetime import datetime
-from events.app.models.pydantic.events import (
-    EventSchema,
-)
-from events.app.helpers import alchemy
-import logging
-from sqlalchemy.future import select
-from sqlalchemy import insert
 
 
 class Event(Base):
@@ -29,13 +22,3 @@ class Event(Base):
 
     def __repr__(self):
         return "<Event id={id}>".format(id=self.id)
-
-    # def __dict__(self):
-    #     return {
-    #         "id": self.id,
-    #         "name": self.name,
-    #         "description": self.description,
-    #         "city": self.city,
-    #         "start_time": self.start_time,
-    #         "end_time": self.end_time,
-    #     }
