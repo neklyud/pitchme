@@ -10,7 +10,7 @@ from sqlalchemy import (
 class Theme(Base):
     __tablename__ = "theme"
 
-    id = Column(Integer, Sequence('event_id_seq'), primary_key=True)
+    id = Column(Integer, Sequence('theme_id_seq'), primary_key=True)
     name = Column(String, unique=True)
 
     def __repr__(self):

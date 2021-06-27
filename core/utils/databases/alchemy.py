@@ -1,6 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.ext.asyncio import AsyncSession
 from core.models.pydantic.json_api.filters import Filter
@@ -14,6 +13,7 @@ from sqlalchemy import (
 from typing import List
 
 from core.utils.filters.filter_converter import filter_converter
+
 
 class AlchemyHelper(object):
     def __init__(self, config):

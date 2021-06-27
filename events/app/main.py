@@ -4,7 +4,6 @@ from fastapi import (
 )
 from core.utils.databases.postgres_helper import PostgresFacade
 from events.app.routes import register_routes
-from events.app.helpers import alchemy
 
 
 def create_app() -> FastAPI:

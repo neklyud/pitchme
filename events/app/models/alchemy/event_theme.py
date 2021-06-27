@@ -11,7 +11,7 @@ from sqlalchemy import (
 class EventsThemes(Base):
     __tablename__ = "eventsthemes"
 
-    id = Column(Integer, Sequence('event_id_seq'), primary_key=True)
+    id = Column(Integer, Sequence('event_theme_id_seq'), primary_key=True)
     event_id = Column(Integer, ForeignKey('event.id'))
     theme_id = Column(Integer, ForeignKey('theme.id'))
 

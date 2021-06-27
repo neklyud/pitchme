@@ -10,6 +10,16 @@ from events.app.models.pydantic.events import (
     EventSchema,
     EventsOutListSchema,
 )
+from events.app.models.pydantic.filters import (
+    FiltersSchema,
+    FiltersOutListSchema,
+)
+from events.app.models.alchemy.filters import Filters
+from events.app.models.pydantic.users import (
+    UsersSchema,
+    UsersOutListSchema,
+)
+from events.app.models.alchemy.users import Users
 from events.app.models.pydantic.theme import (
     ThemeSchema,
     ThemeOutListSchema,
@@ -53,4 +63,18 @@ events_themes_crud = EventsThemesCrud(
     session_maker=alchemy,
     response_schema=EventsThemesSchema,
     response_list_schema=EventsThemesOutListSchema,
+)
+
+users_crud = Crud(
+    model=Users,
+    session_maker=alchemy,
+    response_schema=UsersSchema,
+    response_list_schema=UsersOutListSchema,
+)
+
+filter_crud = Crud(
+    model=Filters,
+    session_maker=alchemy,
+    response_list_schema=FiltersOutListSchema,
+    response_schema=FiltersSchema,
 )

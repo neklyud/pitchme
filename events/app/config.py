@@ -15,6 +15,7 @@ class BaseConfig(Config):
 
 
 class LocalConfig(BaseConfig):
+    SECRET = field("SECRET_KEY")
     DEBUG = field("DEBUG", caster=to_bool, default=True)
     DB_USER = field("DB_USER", default="postgres")
     DB_PASSWORD = field("DB_PASSWORD", default="postgres")
