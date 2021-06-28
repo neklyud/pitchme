@@ -21,3 +21,10 @@ class Users(Base):
 
     def __repr__(self):
         return "<Usr id={id}>".format(id=self.id)
+
+    def dict(self):
+        return {
+            'users.id': self.id,
+            'name': self.name,
+            'email': self.name,
+        }

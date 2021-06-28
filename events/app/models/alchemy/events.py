@@ -22,3 +22,13 @@ class Event(Base):
 
     def __repr__(self):
         return "<Event id={id}>".format(id=self.id)
+
+    def dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'city': self.description,
+            'start_time': self.start_time,
+            'end_time': self.end_time,
+        }

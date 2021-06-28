@@ -1,7 +1,7 @@
 from core.models.pydantic.json_api.filters import Filter
 from core.models.enums.filters import JsonAPIFiltersOperators
 from typing import List
-from sqlalchemy import text, between
+from sqlalchemy import text
 
 
 def filter_converter(filters: List[Filter], query):

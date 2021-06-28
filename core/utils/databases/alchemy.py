@@ -3,15 +3,14 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.ext.asyncio import AsyncSession
 from core.models.pydantic.json_api.filters import Filter
-from typing import Optional
 from sqlalchemy import (
     select,
     update,
     delete,
     insert,
+    join,
 )
-from typing import List
-
+from typing import List, Optional, Any
 from core.utils.filters.filter_converter import filter_converter
 
 
@@ -40,15 +39,29 @@ class Crud(object):
         self.response_schema = response_schema
         self.response_list_schema = response_list_schema
 
-    async def select(self, response_model, filters: Optional[List[Filter]] = None):
+    async def select(
+            self,
+            response_model,
+            filters: Optional[List[Filter]] = None,
+            tables_for_join: Optional[Any] = None,
+            join: Optional[Any] = None,
+    ):
         async with self.session() as session:
-            selection = select(self.model)
+            models = [self.model]
+            if tables_for_join:
+                models.extend(tables_for_join)
+            selection = select(*models)
             if filters:
                 selection = filter_converter(filters, selection)
+            if join is not None:
+                selection = selection.select_from(join)
+            print(selection)
             result = await session.execute(selection)
             data = []
-            for row in result.scalars():
-                data.append(self.to_schema(row, self.response_schema))
+            for row in result.fetchall():
+                base_schema = self.to_schema(row[0], self.response_schema)
+                base_schema.related_data = list(i_row.dict() for i_row in row[1:])
+                data.append(base_schema)
         if response_model is self.response_schema and data:
             return data[0]
         if response_model is self.response_list_schema:

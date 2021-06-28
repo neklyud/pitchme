@@ -15,3 +15,9 @@ class Theme(Base):
 
     def __repr__(self):
         return "<Event id={id} name={name}>".format(id=self.id, name=self.name)
+
+    def dict(self):
+        return {
+            'theme.id': self.id,
+            'name': self.name,
+        }

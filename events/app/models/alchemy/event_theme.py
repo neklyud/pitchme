@@ -2,7 +2,6 @@ from core.utils.databases.alchemy import Base
 from sqlalchemy import (
     Column,
     Integer,
-    String,
     Sequence,
     ForeignKey,
 )
@@ -11,7 +10,7 @@ from sqlalchemy import (
 class EventsThemes(Base):
     __tablename__ = "eventsthemes"
 
-    id = Column(Integer, Sequence('event_theme_id_seq'), primary_key=True)
+    id = Column(Integer, Sequence('eventsthemes_id_seq'), primary_key=True)
     event_id = Column(Integer, ForeignKey('event.id'))
     theme_id = Column(Integer, ForeignKey('theme.id'))
 
@@ -21,3 +20,10 @@ class EventsThemes(Base):
             event_id=self.event_id,
             theme_id=self.theme_id,
         )
+
+    def dict(self):
+        return {
+            'eventsthemes.id': self.id,
+            'event_id': self.event_id,
+            'theme_id': self.theme_id,
+        }
