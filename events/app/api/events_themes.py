@@ -4,7 +4,7 @@ from events.app.models.pydantic.events_schema import (
     EventsThemesOutListSchema,
     EventsThemesPostSchema,
 )
-from typing import Optional
+from typing import Optional, List
 from events.app.crud.event import events_themes_crud
 from core.models.pydantic.json_api.filters import Filter, FilterList
 from core.models.enums.filters import JsonAPIFiltersOperators
@@ -33,10 +33,11 @@ class EventThemesRouterList(object):
 
     @classmethod
     async def get(cls, filters: Optional[str] = None, related_fields: bool = False) -> EventsThemesOutListSchema:
+        filters_list: Optional[List[Filter]] = None
         if filters:
-            filters = FilterList.parse_raw(filters).filters
+            filters_list = FilterList.parse_raw(filters).filters
         res = await events_themes_crud.select(
             response_model=EventsThemesOutListSchema,
-            filters=filters,
+            filters=filters_list,
         )
         return res

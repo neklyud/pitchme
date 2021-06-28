@@ -5,7 +5,7 @@ from events.app.models.pydantic.users import (
     UsersPatchSchema,
     UsersPostSchema,
 )
-from typing import Optional
+from typing import Optional, List
 from events.app.crud.event import users_crud
 from core.models.pydantic.json_api.filters import Filter, FilterList
 from core.models.enums.filters import JsonAPIFiltersOperators
@@ -43,10 +43,11 @@ class UsersRouterList(object):
 
     @classmethod
     async def get(cls, filters: Optional[str] = None, related_fields: bool = False) -> UsersOutListSchema:
+        filters_list: Optional[List[Filter]] = None
         if filters:
-            filters = FilterList.parse_raw(filters).filters
+            filters_list = FilterList.parse_raw(filters).filters
         res = await users_crud.select(
             response_model=UsersOutListSchema,
-            filters=filters,
+            filters=filters_list,
         )
         return res

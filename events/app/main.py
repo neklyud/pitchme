@@ -4,6 +4,7 @@ from fastapi import (
 )
 from core.utils.databases.postgres_helper import PostgresFacade
 from events.app.routes import register_routes
+import uvicorn  # type: ignore
 
 
 def create_app() -> FastAPI:
@@ -30,5 +31,4 @@ async def on_shutdown():
 
 
 if __name__ == '__main__':
-    import uvicorn
     uvicorn.run(app, port=8001)

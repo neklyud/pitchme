@@ -11,7 +11,7 @@ from sqlalchemy import (
 class Filters(Base):
     __tablename__ = "filters"
 
-    id = Column(Integer, Sequence('filter_id_seq'), primary_key=True)
+    id = Column(Integer, Sequence('filters_id_seq'), primary_key=True)
     name = Column(String)
     filter_body = Column(String)
     user_id = Column(Integer, ForeignKey('users.id'))

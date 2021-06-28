@@ -5,8 +5,8 @@ from events.app.models.pydantic.events import (
     EventPatchSchema,
     EventPostSchema,
 )
-from typing import Optional
-from events.app.crud.event import event_crud, events_themes_crud
+from typing import Optional, List
+from events.app.crud.event import event_crud
 from core.models.pydantic.json_api.filters import Filter, FilterList
 from core.models.enums.filters import JsonAPIFiltersOperators
 from events.app.models.alchemy.event_theme import EventsThemes
@@ -55,14 +55,15 @@ class EventRouterList(object):
     @classmethod
     async def get(cls, filters: Optional[str] = None, related_fields: bool = False) -> EventsOutListSchema:
         j = None
+        filters_list: Optional[List[Filter]] = None
         if related_fields:
             j = join(Event, EventsThemes, Event.id == EventsThemes.event_id)
             j = j.join(Theme, EventsThemes.theme_id == Theme.id)
         if filters:
-            filters = FilterList.parse_raw(filters).filters
+            filters_list = FilterList.parse_raw(filters).filters
         res = await event_crud.select(
             response_model=EventsOutListSchema,
-            filters=filters,
+            filters=filters_list,
             tables_for_join=[EventsThemes, Theme],
             join=j,
         )

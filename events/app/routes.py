@@ -19,15 +19,12 @@ from events.app.api.events_themes import EventsThemesRouter, EventThemesRouterLi
 from events.app.api.theme import ThemeRouter, ThemeRouterList
 from fastapi import APIRouter
 from events.app.api.users import UsersRouter, UsersRouterList
-from events.app.api.filters import FiltersRouter, FiltersOutListSchema
 from events.app.models.pydantic.users import (
     UsersSchema,
     UsersOutListSchema,
 )
-from events.app.models.pydantic.filters import (
-    FiltersOutListSchema,
-    FiltersSchema,
-)
+from events.app.api.filters import FiltersRouter, FiltersRouterList
+from events.app.models.pydantic.filters import FiltersSchema, FiltersOutListSchema
 
 
 def register_routes(app: FastAPI) -> None:
@@ -134,3 +131,24 @@ def register_routes(app: FastAPI) -> None:
         response_model=UsersOutListSchema,
     )(UsersRouterList.get)
     app.include_router(users_router)
+
+    filter_router: APIRouter = APIRouter()
+    filter_router.get(
+        path="/api/filter",
+        status_code=200,
+        tags=["Filters"],
+        response_model=FiltersSchema,
+    )(FiltersRouter.get)
+    filter_router.get(
+        path="/api/filters",
+        status_code=200,
+        tags=["Filters"],
+        response_model=FiltersOutListSchema,
+    )(FiltersRouterList.get)
+    filter_router.post(
+        path="/api/filter",
+        status_code=200,
+        tags=["Filters"],
+        response_model=FiltersSchema,
+    )(FiltersRouter.post)
+    app.include_router(filter_router)
