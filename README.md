@@ -1,5 +1,7 @@
 Запуск:
 
+Установить в файл .env переменную CONFIGURATION_TYPE=LOCAL
+
 $pip install poetry. 
 
 $poetry install. 
