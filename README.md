@@ -1,10 +1,15 @@
 Запуск:
 
-$pip install poetry
-$poetry install
-$source .venv/bin/activate
-$docker-compose up -d
-$bash events/run.sh
+$pip install poetry. 
+
+$poetry install. 
+
+$source .venv/bin/activate. 
+ 
+$docker-compose up -d. 
+
+$bash events/run.sh. 
+
 
 Тесты:
 1. Заходим в сваггер: http://localhost:8001/docs (или пользуемся curl'ом)
